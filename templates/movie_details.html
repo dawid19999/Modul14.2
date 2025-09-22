@@ -1,0 +1,54 @@
+
+
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container">
+
+   <h1 class="my-4">
+       {{ movie.title }}
+   </h1>
+
+   <div class="row">
+     <div class="col-md-8">
+       <img class="img-fluid" src="https://image.tmdb.org/t/p/w780{{ movie.backdrop_path }}" alt="{{ movie.title }}">
+     </div>
+     <div class="col-md-4">
+         <h3>{{ movie.tagline }}</h3>
+         <p>{{ movie.overview }}</p>
+         <dl>
+           <dt>Budget</dt>
+           <dd>{{ movie.budget }}</dd>
+           <dt>Genre</dt>
+           <dd>
+             {% for genre in movie.genres %}
+                {{ genre.name }}{% if not loop.last %}, {% endif %}
+             {% endfor %}
+           </dd>
+         </dl>
+     </div>
+   </div>
+
+   <h3 class="my-4">Cast</h3>
+   <div class="row">
+       {% for actor in cast[:8] %}  {# tylko pierwszych 8 aktorów #}
+       <div class="col-md-3 col-sm-6 mb-4 text-center">
+           <figure class="figure">
+               {% if actor.profile_path %}
+                   <img src="https://image.tmdb.org/t/p/w185{{ actor.profile_path }}" 
+                        class="figure-img img-fluid rounded" 
+                        alt="{{ actor.name }}">
+               {% else %}
+                   <img src="https://via.placeholder.com/185x278?text={{ actor.name | urlencode }}" 
+                        class="figure-img img-fluid rounded" 
+                        alt="{{ actor.name }}">
+               {% endif %}
+               <figcaption class="figure-caption">
+                   {{ actor.name }} as {{ actor.character }}
+               </figcaption>
+           </figure>
+       </div>
+       {% endfor %}
+   </div>
+</div>
+{% endblock %}

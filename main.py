@@ -1,7 +1,7 @@
 
 
 from flask import Flask, render_template, request
-import tmdb_client
+from movies_catalogue import tmdb_client
 
 app = Flask(__name__)
 

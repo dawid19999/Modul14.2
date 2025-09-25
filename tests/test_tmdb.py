@@ -1,8 +1,9 @@
 
 
+
+
 import pytest
 from movies_catalogue import tmdb_client
-
 
 
 def test_get_single_movie(monkeypatch):
@@ -49,7 +50,6 @@ def test_get_single_movie_raises(monkeypatch):
         tmdb_client.get_single_movie(111)
 
 
-
 def test_get_single_movie_cast(monkeypatch):
     mock_cast = [{"name": "Actor 1"}, {"name": "Actor 2"}]
     mock_data = {"cast": mock_cast}
@@ -80,8 +80,7 @@ def test_get_single_movie_cast_empty(monkeypatch):
 
     monkeypatch.setattr("movies_catalogue.tmdb_client.requests.get", lambda *a, **kw: MockResponse())
     cast = tmdb_client.get_single_movie_cast(456)
-    assert cast == []
-
+    assert not cast   
 
 
 def test_get_movie_images(monkeypatch):
@@ -119,5 +118,6 @@ def test_get_movie_images_empty(monkeypatch):
 
     monkeypatch.setattr("movies_catalogue.tmdb_client.requests.get", lambda *a, **kw: MockResponse())
     images = tmdb_client.get_movie_images(789)
-    assert images["backdrops"] == []
-    assert images["posters"] == []
+    assert not images["backdrops"]   
+    assert not images["posters"]     
+

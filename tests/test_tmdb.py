@@ -121,3 +121,4 @@ def test_get_movie_images_empty(monkeypatch):
     assert not images["backdrops"]   
     assert not images["posters"]     
 
+
